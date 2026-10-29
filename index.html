@@ -1,0 +1,729 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى حَبيبتي وَروح قَلبِي ❤️</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        romanticPink: '#ff758c',
+                        deepPink: '#ff7eb3',
+                        roseGold: '#f7cad0',
+                        accentGold: '#ffd166',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1a0b2e 0%, #380036 50%, #0d021a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Ambient Background Glowing Spheres */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.25; }
+            100% { transform: scale(1.3) translate(20px, -20px); opacity: 0.45; }
+        }
+
+        /* Floating Particle Containers */
+        #particle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -10%;
+            animation: fallAnimation linear forwards;
+            filter: drop-shadow(0 0 10px rgba(255, 117, 140, 0.7));
+        }
+
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(115vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .burst-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: burstAnimation 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            filter: drop-shadow(0 0 8px rgba(255, 117, 140, 0.9));
+        }
+
+        @keyframes burstAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 182, 193, 0.22);
+            box-shadow: 0 12px 40px 0 rgba(255, 105, 180, 0.15);
+        }
+
+        .glass-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            box-shadow: 0 6px 25px rgba(255, 117, 140, 0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 35px rgba(255, 117, 140, 0.75);
+        }
+
+        .glass-btn:active {
+            transform: translateY(1px) scale(0.97);
+        }
+
+        /* Text Glowing */
+        .glow-text-pink {
+            text-shadow: 0 0 15px rgba(255, 117, 140, 0.8), 0 0 30px rgba(255, 117, 140, 0.4);
+        }
+
+        .glow-text-gold {
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.8), 0 0 30px rgba(255, 209, 102, 0.4);
+        }
+
+        /* Pulsing Animation */
+        .pulse-heart-icon {
+            animation: heartBeat 1.5s infinite ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 117, 140, 0.8)); }
+            50% { transform: scale(1.18); filter: drop-shadow(0 0 25px rgba(255, 117, 140, 1)); }
+        }
+
+        /* Flip Card Logic */
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            inset: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Screen Transitions */
+        .screen-stage {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .screen-hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transform: scale(0.92);
+        }
+
+        /* Custom Spinner */
+        .heart-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #ff758c;
+            border-top-color: #ff7eb3;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Input Error Shake */
+        .shake-input {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* Custom Audio Progress Styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: #ff758c;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff758c;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between min-h-screen relative p-4 md:p-6">
+
+    <!-- Ambient Glowing Background Lights -->
+    <div class="ambient-glow bg-pink-600 w-96 h-96 top-10 right-10"></div>
+    <div class="ambient-glow bg-purple-700 w-96 h-96 bottom-10 left-10"></div>
+
+    <!-- Particle & Heart Rain Layer -->
+    <div id="particle-layer"></div>
+
+    <!-- ======================================================== -->
+    <!-- STEP 1: INITIAL WELCOME SCREEN                           -->
+    <!-- ======================================================== -->
+    <div id="step-1" class="screen-stage w-full max-w-md my-auto flex flex-col items-center justify-center z-10">
+        <div class="glass-panel p-8 md:p-10 rounded-3xl w-full text-center space-y-6 border-pink-400/30">
+            <div class="w-24 h-24 rounded-full bg-pink-500/20 border border-pink-400/40 mx-auto flex items-center justify-center text-5xl text-pink-400 pulse-heart-icon shadow-lg">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <div class="space-y-2">
+                <h1 class="text-3xl md:text-4xl font-extrabold font-cairo text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-roseGold to-pink-400 glow-text-pink">
+                    مفاجأة لروح قلبي ❤️
+                </h1>
+                <p class="text-pink-200/80 text-sm md:text-base leading-relaxed">
+                    عامل لك حاجة مخصوصة جداً من قلبي... جهّزي حالك ودوسي تحت
+                </p>
+            </div>
+
+            <button onclick="goToLoadingStep()" class="glass-btn w-full py-4 text-xl font-bold rounded-2xl text-white flex items-center justify-center gap-3">
+                <span>افتحي هنا ❤️</span>
+                <i class="fa-solid fa-envelope-open-text text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- STEP 2: LOADING SCREEN                                   -->
+    <!-- ======================================================== -->
+    <div id="step-2" class="screen-stage screen-hidden w-full max-w-md my-auto flex flex-col items-center justify-center z-10">
+        <div class="glass-panel p-8 md:p-10 rounded-3xl w-full text-center space-y-6 border-pink-400/30">
+            <div class="relative w-20 h-20 mx-auto flex items-center justify-center">
+                <div class="heart-spinner absolute"></div>
+                <i class="fa-solid fa-heart text-2xl text-pink-400 pulse-heart-icon"></i>
+            </div>
+
+            <div class="space-y-3">
+                <h2 class="text-xl md:text-2xl font-bold text-pink-200 leading-snug glow-text-pink">
+                    استني يا روحي معلش لغاية أما يحمل... ⏳❤️
+                </h2>
+                
+                <!-- Animated Progress Bar -->
+                <div class="w-full bg-white/10 rounded-full h-3 overflow-hidden p-0.5 border border-pink-400/20">
+                    <div id="loading-progress-bar" class="bg-gradient-to-r from-pink-500 via-roseGold to-pink-400 h-full rounded-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <p class="text-xs text-pink-300/70 animate-pulse flex items-center justify-center gap-2">
+                <i class="fa-solid fa-sparkles text-yellow-300"></i>
+                بنجمّع أرق المشاعر والحب علشانك...
+            </p>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- STEP 3: PASSWORD SCREEN                                  -->
+    <!-- ======================================================== -->
+    <div id="step-3" class="screen-stage screen-hidden w-full max-w-md my-auto flex flex-col items-center justify-center z-10">
+        <div id="pass-card" class="glass-panel p-8 md:p-10 rounded-3xl w-full text-center space-y-6 border-pink-400/30">
+            <div class="w-20 h-20 rounded-full bg-pink-500/20 border border-pink-400/40 mx-auto flex items-center justify-center text-3xl text-pink-400">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-pink-200">اكتبي كلمة السر يا روحي 😉</h2>
+                <p class="text-xs text-pink-300/70">السر هو الكلمة اللي بتمثّل مشاعرنا تجاه بعض</p>
+            </div>
+
+            <div class="space-y-4">
+                <input type="password" id="password-input" placeholder="اكتبي السر هنا..." 
+                    class="w-full bg-white/10 border border-pink-400/40 rounded-2xl px-4 py-3.5 text-center text-xl text-white placeholder-pink-300/40 focus:outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-500/50 transition-all font-sans"
+                    onkeypress="if(event.key==='Enter') verifyPassword()">
+
+                <p id="password-error" class="text-roseGold text-xs font-semibold hidden flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-circle-exclamation text-yellow-300"></i>
+                    <span>كلمة السر هي love يا روحي 😉</span>
+                </p>
+
+                <button onclick="verifyPassword()" class="glass-btn w-full py-4 text-lg font-bold rounded-2xl text-white flex items-center justify-center gap-2">
+                    <span>دوسي هنا بسرعة 🚀❤️</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- STEP 4: MAIN CONTENT AREA                                -->
+    <!-- ======================================================== -->
+    <div id="step-4" class="screen-stage screen-hidden w-full max-w-4xl mx-auto space-y-8 pb-36 pt-4 z-10">
+        
+        <!-- Header Banner -->
+        <header class="text-center space-y-3">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-sm font-semibold mb-2">
+                ✨ عالمنا الصغير والخاص ✨
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black font-cairo text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-roseGold to-pink-400 glow-text-pink leading-snug">
+                أول ما عرفنا بعض كان يوم 22/7/2026 ❤️
+            </h1>
+            <p class="text-pink-200/80 text-sm md:text-base">اليوم اللي نَوّر حياتي وغير كل أيامي للأجمل</p>
+        </header>
+
+        <!-- Live Relationship Counter -->
+        <section class="glass-panel p-6 md:p-8 rounded-3xl text-center space-y-6 border-pink-400/30">
+            <div class="flex items-center justify-center gap-2 text-pink-300 text-xl font-bold">
+                <i class="fa-solid fa-hourglass-half text-pink-400 animate-spin"></i>
+                <span>عايشين أجمل حكاية حب بقالنا:</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+                <div class="bg-white/5 border border-pink-400/20 rounded-2xl p-4 flex flex-col items-center">
+                    <span id="cnt-days" class="text-3xl md:text-5xl font-black text-pink-400 font-tajawal">0</span>
+                    <span class="text-xs md:text-sm text-pink-200/70 mt-1">أيام</span>
+                </div>
+                <div class="bg-white/5 border border-pink-400/20 rounded-2xl p-4 flex flex-col items-center">
+                    <span id="cnt-hours" class="text-3xl md:text-5xl font-black text-pink-300 font-tajawal">0</span>
+                    <span class="text-xs md:text-sm text-pink-200/70 mt-1">ساعات</span>
+                </div>
+                <div class="bg-white/5 border border-pink-400/20 rounded-2xl p-4 flex flex-col items-center">
+                    <span id="cnt-minutes" class="text-3xl md:text-5xl font-black text-pink-300 font-tajawal">0</span>
+                    <span class="text-xs md:text-sm text-pink-200/70 mt-1">دقائق</span>
+                </div>
+                <div class="bg-white/5 border border-pink-400/20 rounded-2xl p-4 flex flex-col items-center">
+                    <span id="cnt-seconds" class="text-3xl md:text-5xl font-black text-accentGold font-tajawal">0</span>
+                    <span class="text-xs md:text-sm text-pink-200/70 mt-1">ثواني</span>
+                </div>
+            </div>
+            <p class="text-xs text-pink-300/60">العداد مستمر بيفكرني في كل ثانية بمدى حبي ليكي... 💖</p>
+        </section>
+
+        <!-- Glowing Romantic Declaration Banner -->
+        <section class="glass-panel p-8 md:p-12 rounded-3xl text-center space-y-4 border-pink-400/40 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10">
+            <div class="flex items-center justify-center gap-3 text-3xl md:text-4xl text-pink-400 pulse-heart-icon">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart text-2xl"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-roseGold to-pink-400 glow-text-pink leading-relaxed">
+                بحبك... بعشقك... وبموت فيكي ❤️✨
+            </h2>
+            <p class="text-pink-200/90 text-base md:text-xl font-medium">
+                انتي لستِ مجرد شخص في حياتي، انتي الحياة بأكملها.
+            </p>
+        </section>
+
+        <!-- 4 Interactive Cards -->
+        <section class="space-y-6">
+            <div class="text-center space-y-1">
+                <h3 class="text-2xl font-bold text-pink-200">افتحي الرسائل دي علشانك 💌</h3>
+                <p class="text-xs text-pink-300/70">اضغطي على كل كارت لتكتشفي ما بداخل قلبي</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                <!-- Card 1 -->
+                <div class="flip-card h-48 cursor-pointer" onclick="handleCardClick(this, event)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front glass-panel p-6 flex flex-col items-center justify-center text-center gap-3 border-pink-400/30">
+                            <i class="fa-solid fa-envelope-open-text text-4xl text-pink-400"></i>
+                            <span class="font-bold text-lg text-pink-100">اضغطي هنا 💌</span>
+                        </div>
+                        <div class="flip-card-back glass-panel p-6 flex items-center justify-center text-center border-pink-400/60 bg-gradient-to-br from-pink-950/90 to-purple-950/90">
+                            <p class="text-base md:text-lg font-bold text-roseGold leading-relaxed">
+                                "ما بحبش ولا أحب حد قدك أو حد قد ما حبيتك ❤️"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flip-card h-48 cursor-pointer" onclick="handleCardClick(this, event)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front glass-panel p-6 flex flex-col items-center justify-center text-center gap-3 border-pink-400/30">
+                            <i class="fa-solid fa-key text-4xl text-pink-400"></i>
+                            <span class="font-bold text-lg text-pink-100">سر صغير 🔒</span>
+                        </div>
+                        <div class="flip-card-back glass-panel p-6 flex items-center justify-center text-center border-pink-400/60 bg-gradient-to-br from-pink-950/90 to-purple-950/90">
+                            <p class="text-base md:text-lg font-bold text-roseGold leading-relaxed">
+                                "أنتِ أجمل حاجة حصلت في حياتي كلها ✨"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flip-card h-48 cursor-pointer" onclick="handleCardClick(this, event)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front glass-panel p-6 flex flex-col items-center justify-center text-center gap-3 border-pink-400/30">
+                            <i class="fa-solid fa-ring text-4xl text-pink-400"></i>
+                            <span class="font-bold text-lg text-pink-100">وعد مني 💍</span>
+                        </div>
+                        <div class="flip-card-back glass-panel p-6 flex items-center justify-center text-center border-pink-400/60 bg-gradient-to-br from-pink-950/90 to-purple-950/90">
+                            <p class="text-base md:text-lg font-bold text-roseGold leading-relaxed">
+                                "هفضل جمبك ومستحيل أستغنى عنك أبداً 💖"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="flip-card h-48 cursor-pointer" onclick="handleCardClick(this, event)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front glass-panel p-6 flex flex-col items-center justify-center text-center gap-3 border-pink-400/30">
+                            <i class="fa-solid fa-circle-question text-4xl text-pink-400"></i>
+                            <span class="font-bold text-lg text-pink-100">سؤال سريع ❓</span>
+                        </div>
+                        <div class="flip-card-back glass-panel p-6 flex items-center justify-center text-center border-pink-400/60 bg-gradient-to-br from-pink-950/90 to-purple-950/90">
+                            <p class="text-base md:text-lg font-bold text-roseGold leading-relaxed">
+                                "عارفة إنك واخدة قلبي وروحي معاكي؟ 🥰"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center pt-8 text-pink-300/60 text-xs md:text-sm space-y-1">
+            <p>صُنعت بكل حب وشغف لكي أنتِ فقط ❤️</p>
+            <p>© معاً إلى الأبد</p>
+        </footer>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FIXED BOTTOM AUDIO PLAYER BAR                            -->
+    <!-- ======================================================== -->
+    <div id="audio-player-bar" class="fixed bottom-0 left-0 w-full z-50 p-3 md:p-4 transition-all duration-700 transform translate-y-full">
+        <div class="max-w-2xl mx-auto glass-panel rounded-2xl p-3 md:p-4 border-pink-400/40 bg-black/75 shadow-2xl backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-3 md:gap-4">
+            
+            <!-- Song Info -->
+            <div class="flex items-center gap-3 w-full sm:w-auto shrink-0 justify-between sm:justify-start">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-full bg-pink-500/20 text-pink-400 border border-pink-400/40 flex items-center justify-center text-xl shrink-0 pulse-heart-icon">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-pink-200">أغنيتنا المفضلة 🎵</p>
+                        <p class="text-xs text-pink-300/70">رامي صبري - بحبك</p>
+                    </div>
+                </div>
+
+                <!-- Play/Pause Button for Mobile -->
+                <button onclick="toggleAudio()" class="sm:hidden text-pink-400 text-2xl px-2">
+                    <i id="play-icon-mobile" class="fa-solid fa-circle-play"></i>
+                </button>
+            </div>
+
+            <!-- Controls & Seek Bar -->
+            <div class="w-full flex items-center gap-3">
+                <button onclick="toggleAudio()" class="hidden sm:flex text-pink-400 hover:text-pink-300 text-3xl transition-transform active:scale-90">
+                    <i id="play-icon-desktop" class="fa-solid fa-circle-play"></i>
+                </button>
+
+                <span id="time-current" class="text-[11px] text-pink-300/80 font-mono">00:00</span>
+                
+                <input type="range" id="audio-seek" value="0" min="0" max="100" 
+                    oninput="seekAudio(this.value)"
+                    class="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-pink-500">
+
+                <span id="time-duration" class="text-[11px] text-pink-300/80 font-mono">00:00</span>
+            </div>
+
+            <!-- Native Audio Element -->
+            <audio id="romantic-audio" preload="auto" loop>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT LOGIC                                         -->
+    <!-- ================================================= grand-->
+    <script>
+        // Target Date: July 22, 2026
+        const startDate = new Date('2026-07-22T00:00:00');
+        let heartRainInterval = null;
+
+        // 1. Particle & Heart Rain Logic
+        function startHeartRain(intervalMs = 400) {
+            if (heartRainInterval) clearInterval(heartRainInterval);
+            heartRainInterval = setInterval(() => {
+                createFallingHeart();
+            }, intervalMs);
+        }
+
+        function createFallingHeart() {
+            const container = document.getElementById('particle-layer');
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            
+            const icons = ['❤️', '💖', '💕', '💗', '🌸', '✨'];
+            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 1.2 + 0.9) + 'rem';
+            
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6500);
+        }
+
+        // 2. Burst Explosion of Hearts
+        function triggerHeartBurst(x, y, count = 35) {
+            const icons = ['❤️', '💖', '💕', '💗', '✨'];
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('burst-heart');
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 180 + 50;
+                const tx = (Math.cos(angle) * distance) + 'px';
+                const ty = (Math.sin(angle) * distance) + 'px';
+                const rot = (Math.random() * 360) + 'deg';
+                
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                heart.style.setProperty('--rot', rot);
+                heart.style.fontSize = (Math.random() * 1.3 + 1) + 'rem';
+                
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 1200);
+            }
+        }
+
+        // 3. Screen Stage Transitions
+        function switchStage(stageId) {
+            const stages = ['step-1', 'step-2', 'step-3', 'step-4'];
+            stages.forEach(id => {
+                const element = document.getElementById(id);
+                if (id === stageId) {
+                    element.classList.remove('screen-hidden');
+                } else {
+                    element.classList.add('screen-hidden');
+                }
+            });
+        }
+
+        // Step 1 -> Step 2
+        function goToLoadingStep() {
+            switchStage('step-2');
+            startHeartRain(150); // Faster hearts during loading
+            
+            const progressBar = document.getElementById('loading-progress-bar');
+            let progress = 0;
+            
+            const progressTimer = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(progressTimer);
+                    setTimeout(() => {
+                        switchStage('step-3');
+                    }, 400);
+                }
+            }, 60); // 3-second simulation
+        }
+
+        // Step 3 Password Verification
+        function verifyPassword() {
+            const input = document.getElementById('password-input').value.trim().toLowerCase();
+            const errorElement = document.getElementById('password-error');
+            const passCard = document.getElementById('pass-card');
+
+            if (input === 'love') {
+                errorElement.classList.add('hidden');
+                
+                // Explode hearts across the center of screen
+                triggerHeartBurst(window.innerWidth / 2, window.innerHeight / 2, 60);
+                
+                setTimeout(() => {
+                    switchStage('step-4');
+                    
+                    // Show Audio Player Bar
+                    document.getElementById('audio-player-bar').classList.remove('translate-y-full');
+                    
+                    // Autoplay Audio
+                    playAudio();
+                    
+                    // Initialize Relationship Counter
+                    initCounter();
+                }, 600);
+
+            } else {
+                errorElement.classList.remove('hidden');
+                passCard.classList.add('shake-input');
+                setTimeout(() => passCard.classList.remove('shake-input'), 500);
+            }
+        }
+
+        // Step 4 Counter Interval
+        function initCounter() {
+            function updateTimer() {
+                const now = new Date();
+                const diff = Math.abs(now - startDate);
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('cnt-days').innerText = days;
+                document.getElementById('cnt-hours').innerText = hours;
+                document.getElementById('cnt-minutes').innerText = minutes;
+                document.getElementById('cnt-seconds').innerText = seconds;
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // Card Flip & Particle Effects
+        function handleCardClick(card, event) {
+            card.classList.toggle('flipped');
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX || (rect.left + rect.width / 2);
+            const y = event.clientY || (rect.top + rect.height / 2);
+            triggerHeartBurst(x, y, 15);
+        }
+
+        // Audio Player Utilities
+        const audio = document.getElementById('romantic-audio');
+        const playIconDesktop = document.getElementById('play-icon-desktop');
+        const playIconMobile = document.getElementById('play-icon-mobile');
+        const seekSlider = document.getElementById('audio-seek');
+        const timeCurrent = document.getElementById('time-current');
+        const timeDuration = document.getElementById('time-duration');
+
+        function playAudio() {
+            audio.play().then(() => {
+                updatePlayIcons(true);
+            }).catch(e => console.log('Autoplay prevented:', e));
+        }
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                updatePlayIcons(true);
+            } else {
+                audio.pause();
+                updatePlayIcons(false);
+            }
+        }
+
+        function updatePlayIcons(isPlaying) {
+            const iconClass = isPlaying ? 'fa-circle-pause' : 'fa-circle-play';
+            playIconDesktop.className = `fa-solid ${iconClass}`;
+            playIconMobile.className = `fa-solid ${iconClass}`;
+        }
+
+        function formatTime(secs) {
+            if (isNaN(secs)) return '00:00';
+            const m = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60);
+            return `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+        }
+
+        audio.ontimeupdate = function() {
+            if (audio.duration) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                seekSlider.value = pct;
+                timeCurrent.innerText = formatTime(audio.currentTime);
+                timeDuration.innerText = formatTime(audio.duration);
+            }
+        };
+
+        function seekAudio(value) {
+            if (audio.duration) {
+                audio.currentTime = (value / 100) * audio.duration;
+            }
+        }
+
+        // Start Ambient Particle Rain on load
+        window.onload = function() {
+            startHeartRain(500);
+        };
+    </script>
+</body>
+</html>
+```
